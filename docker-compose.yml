@@ -1,0 +1,56 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Proyecto1234!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "Proyecto1234!" -C -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./init.sql:/init.sql
+    entrypoint: >
+      /bin/bash -c "
+      /opt/mssql-tools18/bin/sqlcmd -S db -U sa -P 'Proyecto1234!' -C -i /init.sql &&
+      echo '✅ Base de datos inicializada correctamente'
+      "
+    restart: "no"
+
+  backend:
+    build: ./Proyecto-Backend-main
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_SERVER: db
+      DB_PORT: 1433
+      DB_DATABASE: ProyectoBD
+      DB_USER: sa_proyecto
+      DB_PASSWORD: Proyecto1234!
+      JWT_SECRET: proyecto_secreto
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./ProyectoFront
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  sql_data:

@@ -1,0 +1,12 @@
+[submodule "Proyecto-Backend"]
+	path = Proyecto-Backend
+	url = https://github.com/Albano107/Proyecto-Backend
+[submodule "Proyecto-Front"]
+	path = Proyecto-Front
+	url = https://github.com/Albano107/Proyecto-Front
+[submodule "Proyecto-Backend-main"]
+	path = Proyecto-Backend-main
+	url = https://github.com/Albano107/Proyecto-Backend.git
+[submodule "ProyectoFront"]
+	path = ProyectoFront
+	url = https://github.com/Albano107/Proyecto-Front.git
