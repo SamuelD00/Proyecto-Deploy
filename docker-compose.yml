@@ -5,7 +5,7 @@ services:
       SA_PASSWORD: "Proyecto1234!"
       ACCEPT_EULA: "Y"
     ports:
-      - "1433:1433"
+      - "1343:1343"
     volumes:
       - sql_data:/var/opt/mssql
     healthcheck:
@@ -32,7 +32,7 @@ services:
   backend:
     build: ./Proyecto-Backend-main
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       PORT: 3000
       DB_SERVER: db
