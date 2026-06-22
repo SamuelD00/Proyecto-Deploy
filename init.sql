@@ -174,7 +174,7 @@ GO
 IF NOT EXISTS (SELECT * FROM [dbo].[Usuarios])
 BEGIN
     SET IDENTITY_INSERT [dbo].[Usuarios] ON
-    INSERT [dbo].[Usuarios] ([id_usuario], [nombre], [email], [password], [pin], [id_rol], [id_sucursal], [activo]) VALUES (1, N'Administrador', N'admin@gondola.com',    N'admin123', NULL,   1, NULL, 1)
+    INSERT [dbo].[Usuarios] ([id_usuario], [nombre], [email], [password], [pin], [id_rol], [id_sucursal], [activo]) VALUES (1, N'Administrador', N'admin@gondola.com',    N'admin123', N'0000',   1, NULL, 1)
     INSERT [dbo].[Usuarios] ([id_usuario], [nombre], [email], [password], [pin], [id_rol], [id_sucursal], [activo]) VALUES (2, N'Operario Norte', N'norte@gondola.com',   N'op123',    N'1111', 2, 1,    1)
     INSERT [dbo].[Usuarios] ([id_usuario], [nombre], [email], [password], [pin], [id_rol], [id_sucursal], [activo]) VALUES (3, N'Operario Sur',   N'sur@gondola.com',     N'op123',    N'2222', 2, 2,    1)
     INSERT [dbo].[Usuarios] ([id_usuario], [nombre], [email], [password], [pin], [id_rol], [id_sucursal], [activo]) VALUES (4, N'Operario Centro', N'centro@gondola.com', N'op123',    N'3333', 2, 3,    1)
