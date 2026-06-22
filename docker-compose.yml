@@ -5,7 +5,7 @@ services:
       SA_PASSWORD: "Proyecto1234!"
       ACCEPT_EULA: "Y"
     ports:
-      - "1343:1343"
+      - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
     healthcheck:
