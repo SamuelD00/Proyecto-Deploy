@@ -30,7 +30,7 @@ services:
     restart: "no"
 
   backend:
-    build: ./Proyecto-Backend-main
+    build: ./backend
     ports:
       - "3001:3000"
     environment:
@@ -46,7 +46,7 @@ services:
         condition: service_healthy
 
   frontend:
-    build: ./ProyectoFront
+    build: ./frontend
     ports:
       - "80:80"
     depends_on:

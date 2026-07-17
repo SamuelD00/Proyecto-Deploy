@@ -150,6 +150,6 @@ Proyecto-Deploy/
 ├── docker-compose.yml       ← orquesta todos los servicios
 ├── init.sql                 ← crea y carga la base de datos
 ├── README.md                ← esta guía
-├── Proyecto-Backend-main/   ← submodule del backend
-└── ProyectoFront/           ← submodule del frontend
+├── backend/                 ← submodule del backend
+└── frontend/                ← submodule del frontend
 ```
