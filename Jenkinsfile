@@ -41,8 +41,12 @@ pipeline {
             steps {
                 echo 'Construyendo imagenes Docker del sistema...'
                 bat 'docker-compose build'
-            }
-        }
+
+                echo 'Etiquetando imagenes para el paquete release...'
+                bat 'docker tag gondolapro-empaquetado-backend:latest proyecto-deploy-backend:latest'
+                bat 'docker tag gondolapro-empaquetado-frontend:latest proyecto-deploy-frontend:latest'
+    }
+}
 
         stage('Preparar carpeta release') {
             steps {
