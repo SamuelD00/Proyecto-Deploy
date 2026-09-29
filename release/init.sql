@@ -135,6 +135,26 @@ BEGIN
 END
 GO
 
+-- Auditorias: registro de actividad del sistema (login, altas/ediciones/bajas
+-- de inventario, retiros, altas/bajas de usuario). Se llena dinámicamente
+-- desde el backend (ver src/services/auditoria.service.js), no lleva seed.
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Auditorias' AND xtype='U')
+BEGIN
+    CREATE TABLE [dbo].[Auditorias](
+        [id_auditoria] [int]          IDENTITY(1,1) NOT NULL,
+        [fecha]        [datetime]     NULL,
+        [id_usuario]   [int]          NULL,
+        [accion]       [varchar](30)  NOT NULL,
+        [detalle]      [varchar](500) NULL,
+        [id_sucursal]  [int]          NULL,
+        PRIMARY KEY CLUSTERED ([id_auditoria] ASC),
+        FOREIGN KEY([id_usuario])   REFERENCES [dbo].[Usuarios]   ([id_usuario]),
+        FOREIGN KEY([id_sucursal])  REFERENCES [dbo].[Sucursales] ([id_sucursal])
+    ) ON [PRIMARY]
+    ALTER TABLE [dbo].[Auditorias] ADD DEFAULT (getdate()) FOR [fecha]
+END
+GO
+
 -- ============================================================
 -- DATOS INICIALES: Roles
 -- ============================================================
@@ -373,16 +393,4 @@ BEGIN
     END
     ')
 END
-GO
-IF OBJECT_ID('Auditorias', 'U') IS NULL
-BEGIN
-    CREATE TABLE Auditorias (
-        id_auditoria INT IDENTITY(1,1) PRIMARY KEY,
-        id_usuario INT NULL,
-        accion VARCHAR(30) NOT NULL,
-        detalle VARCHAR(500) NULL,
-        id_sucursal INT NULL,
-        fecha DATETIME NOT NULL DEFAULT GETDATE()
-    );
-END;
 GO
