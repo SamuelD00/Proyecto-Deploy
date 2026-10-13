@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Actualizar submodulos') {
+            steps {
+                bat 'git submodule update --init --recursive'
+            }
+        }
+
+        stage('Verificar submodulos') {
+            steps {
+                bat 'git submodule status'
+            }
+        }
+
+        stage('Construir imagenes Docker') {
+            steps {
+                bat 'docker-compose build'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Validacion deploy correcta.'
+        }
+
+        failure {
+            echo 'La validacion deploy fallo.'
+        }
+    }
+}
